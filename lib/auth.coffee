@@ -48,7 +48,7 @@ getUserQuerySelector = (user) ->
 
   # Retrieve the user from the database
   authenticatingUserSelector = getUserQuerySelector(user)
-  authenticatingUser = Meteor.users.findOne(authenticatingUserSelector)
+  authenticatingUser = await Meteor.users.findOneAsync(authenticatingUserSelector)
 
   if not authenticatingUser
     throw new Meteor.Error 401, 'Unauthorized'

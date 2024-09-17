@@ -155,13 +155,13 @@ if (Meteor.isServer) {
 
   // Maps to: /api/articles/:id
   Api.addRoute('articles/:id', {authRequired: true}, {
-    get: function () {
-      return Articles.findOne(this.urlParams.id);
+    get: async function () {
+      return await Articles.findOneAsync(this.urlParams.id);
     },
     delete: {
       roleRequired: ['author', 'admin'],
-      action: function () {
-        if (Articles.remove(this.urlParams.id)) {
+      action: async function () {
+        if (await Articles.removeAsync(this.urlParams.id)) {
           return {status: 'success', data: {message: 'Article removed'}};
         }
         return {
